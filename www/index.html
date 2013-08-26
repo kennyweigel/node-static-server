@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>surf-check</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pageslider.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <div id="container"></div>
+
+    <script id="home-tpl" type="text/x-handlebars-template">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-inner">
+          <button type="button" id="homeMenu" class="btn navbar-btn btn-default pull-left"><i class="icon-reorder"></i></button>
+          <h3>Buoys</h3>
+          <button type="button" id="homeRefresh" class="btn navbar-btn btn-default pull-right" ><i class="icon-refresh"></i></button>
+        </div>
+      </div>
+      <div id="wrapper">
+        <div id="scroller">
+        </div>
+      </div>
+      <ul id="indicator">
+      </ul>
+    </script>
+
+    <script id="home-scroller-tpl" type="text/x-handlebars-template">
+      <ul id="theList">
+        {{#.}}
+        <li>
+          <div class="slide">
+            <h2>{{this.id}}</h2>
+            <div id="{{this.id}}-data">{{{this.data}}}</div>
+          </div>
+        </li>
+        {{/.}}
+        <li>
+          <div class="slide" id="addBuoySlide">
+            <h2>Add Buoy</h2>
+            <p>Tap Here To Add A New Buoy</p>
+          </div>
+        </li>
+      </ul>
+    </script>
+
+    <script id="home-indicator-tpl" type="text/x-handlebars-template">
+      {{#.}}
+      <li></li>
+      {{/.}}
+      <li></li>
+    </script>
+    
+    <script id="map-tpl" type="text/x-handlebars-template">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-inner">
+          <button type="button" id="mapMenu" class="btn navbar-btn btn-default pull-left"><i class="icon-reorder"></i></button>
+          <h3>Map</h3>
+          <button type="button" id="mapRefresh" class="btn navbar-btn btn-default pull-right"><i class="icon-refresh"></i></button>
+        </div>
+      </div>
+      <div id="mapCanvas" style="height:100%; width:100%; position:absolute"></div>
+    </script>
+
+    <script id="menu-tpl" type="text/x-handlebars-template">    
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-inner">
+          <button type="button" id="menuHome" class="btn navbar-btn btn-default pull-left"><i class="icon-home"></i></button>
+          <h3 >Menu</h3>
+          <button type="button" id="menuMap" class="btn navbar-btn btn-default pull-right"><i class="icon-globe"></i></button>
+        </div>
+      </div>
+      <div class="pageContent">
+        <h4>Favorites</h4>
+        <table class="table table-bordered" id="buoyTable">
+          {{#.}}
+            <tr>
+              <td id="{{this.id}}-li" class="menuBuoy">{{this.id}}<a class="btn btn-danger pull-right deleteBtn"><i class="icon-minus-sign"></i></a></td>
+            </tr>
+          {{/.}}
+          <tr>
+            <td id="menuAddBuoy">Add New Buoy</td>
+          </tr>
+        </table>
+      </div>
+    </script>
+
+    <script id="search-tpl" type="text/x-handlebars-template">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-inner">
+          <h3>Add Buoys</h3>
+          <button type="button" id="searchBack" class="btn navbar-btn btn-default pull-right"><i class="icon-arrow-left"></i></button>
+        </div>
+      </div>
+      <div class="pageContent" id="searchContent">
+        <form id="searchForm" action="javascript:app.validateBuoy()">
+          <input type="search" class="form-control" id="searchInput" placeholder="Search For Buoys...">
+          <div class="icon-search"></div>
+        </form>
+        <button type="button" id="searchGeolocation" class="btn btn-default pull-right"><i class="icon-location-arrow"></i></button>
+        <h4>Closest Buoys</h4>
+        <table class="table table-bordered" id="closestBuoysTable">
+          <tbody>
+            <tr>
+              <td>Getting Current Location...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </script>
+    
+    <script id="closestBuoysTable-tpl" type="text/x-handlebars-template">
+      <tbody>
+        {{#.}}
+        <tr id="{{this.id}}-closestBuoy" class="closestBuoys needsclick"><td>{{this.id}} - {{this.name}}</td></tr>
+        {{/.}}
+      </tbody>
+    </script>
+      
+    <script id="buoy-tpl" type="text/x-handlebars-template">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-inner">
+          <h3>{{title}}</h3>
+          <button type="button" id="buoyBack" class="btn navbar-btn btn-default pull-right"><i class="icon-arrow-left"></i></button>
+        </div>
+      </div>
+      <div class="pageContent" id="buoyContent">
+        <p>Getting Buoy Data ...</p>
+      </div>
+    </script>
+
+    <script src="phonegap.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="lib/jquery-1.9.1.min.js"></script>
+    <script src="lib/pageslider.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/handlebars.js"></script>
+    <script src="lib/iscroll.js"></script>
+    <script src="lib/fastclick.js"></script>
+    <script src="js/LocalStorage.js"></script>
+    <script src="js/all-regions.js"></script>
+    <script src="js/HomeView.js"></script>
+    <script src="js/MapView.js"></script>
+    <script src="js/MenuView.js"></script>
+    <script src="js/SearchView.js"></script>
+    <script src="js/BuoyView.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns       = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "org.kennyweigel.wavewire"
+        versionCode = "10"
+        version     = "1.0.0">
+ 
+  <name>Wave Wire</name>
+
+  <description>
+      Gathers realtime data from NOAA ocean buoys.
+  </description>
+
+  <author>
+      Kenny Weigel
+  </author>
+
+  <preference name="phonegap-version" value="2.9.0"/>
+  <preference name="orientation" value="portrait"/>
+  <!-- ios specific -->
+  <preference name="webviewbounce" value="false" />
+  
+  <feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <!-- this is not implemented yet -->
+  <feature name="http://api.phonegap.com/1.0/network"/>
+  <plugin name="Notification" value="CDVNotification" />
+  <access origin="*"/>
+</widget>
+

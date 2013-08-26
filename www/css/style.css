@@ -1,0 +1,169 @@
+/* universal styles */
+body {
+  /*removes ios link highlighting*/
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  /*removes ios copy for table rows*/
+  -webkit-user-select:none;
+  /*background-color:#1E90FF;*/
+  margin:0;
+}
+
+.navbar-inner {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.navbar-inner > h3 {
+  position:absolute;
+  left:50px;
+  right:50px;
+  padding:0;
+  margin:0;
+  text-align:center;
+  line-height:50px;
+}
+
+.pageContent {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  top:51px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  padding:10px;
+}
+/* end universal styles */
+
+/* home page styles */
+#wrapper {
+  position:absolute;  /* On older OS versions "position" and "z-index" must be defined, */
+  top:51px;
+  bottom:20px;
+  left:0;
+  right:0;  
+  z-index:1;      /* it seems that recent webkit is less picky and works anyway. */
+  overflow:hidden;
+}
+
+#scroller {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0;
+  padding:0;
+}
+
+#scroller ul {
+  display:block;
+  float:left;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0;
+  padding:0;
+}
+
+#scroller li {
+  display:block;
+  float:left;
+  position:static;
+  height:100%;
+  margin:0;
+  padding:0;
+}
+.slide {
+  margin:20px;
+}
+
+#indicator {
+  position:absolute;
+  bottom:10px;
+  left:0;
+  right:0;
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+
+#indicator > li {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  -o-border-radius:5px;
+  border-radius:5px;
+  background:lightgray;
+  overflow:hidden;
+  margin-right:5px;
+}
+
+#indicator > li:last-child {
+  margin:0;
+}
+
+#indicator > li.active {
+  background:gray;
+}
+
+#theList h2 {
+  text-align:center;
+}
+
+#addBuoySlide > p {
+  text-align: center;
+  position: relative;
+  top: 30%;
+}
+/* end home page styles */
+
+/* menu styles */
+#buoyTable {
+  font-size: 18px;
+}
+
+#buoyTable td {
+  line-height:34px;
+}
+/* end menu styles */
+
+/* search styles */
+#searchContent > h4 {
+  margin-top:50px;
+}
+
+#searchForm {
+  position:relative;
+}
+  
+#searchInput {
+  position:absolute;
+  width:auto;
+  padding-left:30px;
+  left:0;
+  right:55px;
+  margin-bottom:10px;
+  text-transform: uppercase;
+}
+
+#searchForm .icon-search {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.tappable-active {
+  color: #fff;
+  background-color: #4286f5;
+}
+
+#searchGeolocation {
+  position:absolute;
+  right:15px;
+}
+/* end search page */
