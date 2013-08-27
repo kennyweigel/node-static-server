@@ -230,11 +230,10 @@ var app = {
             currentFavorites.push({id: inputVal, data: "<p>No Updates</p>"});
             app.store.setFavorites(currentFavorites);
             if (app.menuPage) {
-                app.homePage.renderFavorites();
-                app.homePage.resize();
                 app.menuPage.render();
             }
-            return;
+            app.homePage.renderFavorites();
+            app.homePage.resize();
         }
         
         function isFavorite(inputVal) {
@@ -248,44 +247,31 @@ var app = {
         }
 
         if (!currentFavorites.length) {
-            if (isValidId(inputVal)) {
+            if (isValidId(inputVal)) { 
+                input.val("");
+                $('input').blur();
                 addBuoy(inputVal);
-                if (input) {
-                    //deletes input value and removes focus
-                    input.val("");
-                    $('input').blur();
-                }
-            } else {
+            } else { 
+                input.val("");
+                $('input').blur();
                 app.showAlert("Buoy " + inputVal + " can't be found.", "Search");
-                if (input) {
-                    input.val("");
-                    $('input').blur();
-                }
             }
         } else {
             //checks if buoy is already a favorite
             if (isFavorite(inputVal, currentFavorites)) {
+                input.val("");
+                $('input').blur();
                 app.showAlert("Buoy " + inputVal + " is already a favorite.", "Favorites");
-                if (input) {
-                    input.val("");
-                    $('input').blur();
-                }
             } else {
                 //checks if buoy matches any buoy ids
-                if (isValidId(inputVal)) {
-                    if (isValidId(inputVal)) {
-                        addBuoy(inputVal, currentFavorites);
-                        if (input) {
-                            input.val("");
-                            $('input').blur();
-                        }
-                    }
+                if (isValidId(inputVal)) { 
+                    input.val("");
+                    $('input').blur();
+                    addBuoy(inputVal);                    
                 } else {
+                    input.val("");
+                    $('input').blur();                    
                     app.showAlert("Buoy " + inputVal + " can't be found.", "Search");
-                    if (input) {
-                        input.val("");
-                        $('input').blur();
-                    }
                 }
             }
         }

@@ -41,9 +41,9 @@ var MenuView = function () {
                 }
             }
             app.store.setFavorites(currentFavs);
+            app.menuPage.render();
             app.homePage.renderFavorites();
             app.homePage.resize();
-            app.menuPage.render();
         }
     };
 
