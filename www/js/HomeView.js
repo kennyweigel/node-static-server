@@ -41,17 +41,20 @@ var HomeView = function () {
         //sets each slide to appropriate size
         $(".slide").height(app.screenHeight - 110);
         $(".slide").width(app.screenWidth - 40);
-        if (!this.myScroll) {
-            this.myScroll = new iScroll("wrapper", {
-                snap: true,
-                momentum: false,
-                hScrollbar: false,
-                onScrollEnd: function () {
-                    document.querySelector("#indicator > li.active").className = "";
-                    document.querySelector("#indicator > li:nth-child(" + (this.currPageX + 1) + ")").className = "active";
-                }
-            });
+        
+        if (this.myScroll) {
+            this.myScroll.destroy();
         }
+        
+        this.myScroll = new iScroll("wrapper", {
+            snap: true,
+            momentum: false,
+            hScrollbar: false,
+            onScrollEnd: function () {
+                document.querySelector("#indicator > li.active").className = "";
+                document.querySelector("#indicator > li:nth-child(" + (this.currPageX + 1) + ")").className = "active";
+            }
+        });
     };
 
     this.homeRefresh = function () {

@@ -16,7 +16,7 @@ var LocalStorageStore = function () {
 
     
     if (!this.getFavorites()) {
-        this.setFavorites([]);
+        this.setFavorites([{id: "44030", data: "<p>No Updates</p>"}]);
     }
 
 };
