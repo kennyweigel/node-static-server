@@ -22,10 +22,17 @@ var HomeView = function () {
     this.renderFavorites = function () {
         $("#scroller").html(HomeView.scrollerTemplate(app.store.getFavorites()));
         $("#indicator").html(HomeView.indicatorTemplate(app.store.getFavorites()));
+        if (this.myScroll) {
+            this.myScroll.scrollToPage(0);
+        }
     };
 
     this.resize = function () {
         var testFavs;
+
+        //sets first li bullet active
+        $("#indicator>li").removeClass("active");
+        $("#indicator>:first-child").addClass("active");
         
         testFavs = app.store.getFavorites();
         $("#scroller").width((testFavs.length + 1) * app.screenWidth);
@@ -34,20 +41,17 @@ var HomeView = function () {
         //sets each slide to appropriate size
         $(".slide").height(app.screenHeight - 110);
         $(".slide").width(app.screenWidth - 40);
-        this.myScroll = new iScroll("wrapper", {
-            snap: true,
-            momentum: false,
-            hScrollbar: false,
-            onScrollEnd: function () {
-                document.querySelector("#indicator > li.active").className = "";
-                document.querySelector("#indicator > li:nth-child(" + (this.currPageX + 1) + ")").className = "active";
-            }
-        });
-        //sets scroller to first page
-        this.myScroll.scrollToPage(0);
-        //sets first li bullet active
-        $("#indicator>li").removeClass("active");
-        $("#indicator>:first-child").addClass("active");
+        if (!this.myScroll) {
+            this.myScroll = new iScroll("wrapper", {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    document.querySelector("#indicator > li.active").className = "";
+                    document.querySelector("#indicator > li:nth-child(" + (this.currPageX + 1) + ")").className = "active";
+                }
+            });
+        }
     };
 
     this.homeRefresh = function () {

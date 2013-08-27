@@ -11,12 +11,20 @@ var SearchView = function () {
         this.el.on("click", "#searchGeolocation", this.getClosestBuoys);
         //browser supports touch events
         if (document.documentElement.hasOwnProperty("ontouchstart")) {
+            var moved = false;
+            
             this.el.on("touchstart", ".closestBuoys", function () {
                 $(this).addClass("tappable-active");
+                moved = false;
+            });
+            this.el.on("touchmove", function () {
+                moved = true;
             });
             this.el.on("touchend", ".closestBuoys", function () {
-                app.searchPage.confirmClosestBuoy($(this).attr("id").substring(0, 5));
                 $(this).removeClass("tappable-active");
+                if (!moved) {
+                    app.searchPage.confirmClosestBuoy($(this).attr("id").substring(0, 5));
+                }
             });
         } else { //browser only supports mouse events
             this.el.on("mousedown", ".closestBuoys", function () {

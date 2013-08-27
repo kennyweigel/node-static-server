@@ -91,12 +91,14 @@ var app = {
                 this.page = this.buoyPage.el;
                 this.slider.slidePage($(this.page));
                 this.buoyPage.registerEvents();
+                this.buoyPage.getSpecificBuoyData();
             } else {
                 this.buoyPage = new BuoyView();
                 this.buoyPage.render();
                 this.page = this.buoyPage.el;
                 this.slider.slidePage($(this.page));
                 this.buoyPage.registerEvents();
+                this.buoyPage.getSpecificBuoyData();
             }
         }
     },
@@ -189,6 +191,8 @@ var app = {
                 "Favorites",
                 ["Yes", "Cancel"]
             );
+        } else {
+            app.showAlert("Only 10 buoys may be added to your Favorites.", "Favorites");
         }
     },
 
@@ -226,7 +230,8 @@ var app = {
             currentFavorites.push({id: inputVal, data: "<p>No Updates</p>"});
             app.store.setFavorites(currentFavorites);
             if (app.menuPage) {
-                app.homePage.render();
+                app.homePage.renderFavorites();
+                app.homePage.resize();
                 app.menuPage.render();
             }
             return;
@@ -246,12 +251,15 @@ var app = {
             if (isValidId(inputVal)) {
                 addBuoy(inputVal);
                 if (input) {
+                    //deletes input value and removes focus
                     input.val("");
+                    $('input').blur();
                 }
             } else {
                 app.showAlert("Buoy " + inputVal + " can't be found.", "Search");
                 if (input) {
                     input.val("");
+                    $('input').blur();
                 }
             }
         } else {
@@ -260,6 +268,7 @@ var app = {
                 app.showAlert("Buoy " + inputVal + " is already a favorite.", "Favorites");
                 if (input) {
                     input.val("");
+                    $('input').blur();
                 }
             } else {
                 //checks if buoy matches any buoy ids
@@ -268,12 +277,14 @@ var app = {
                         addBuoy(inputVal, currentFavorites);
                         if (input) {
                             input.val("");
+                            $('input').blur();
                         }
                     }
                 } else {
                     app.showAlert("Buoy " + inputVal + " can't be found.", "Search");
                     if (input) {
                         input.val("");
+                        $('input').blur();
                     }
                 }
             }

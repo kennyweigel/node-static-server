@@ -32,7 +32,7 @@ var MapView = function () {
                     mapTypeId: google.maps.MapTypeId.TERRAIN,
                     disableDefaultUI: true
                 },
-                map = new google.maps.Map(document.getElementById("mapCanvas"), mapOptions),
+                map = new google.maps.Map(document.getElementById("mapContent"), mapOptions),
                 regionsLength = regions.length,
                 i,
                 j,
